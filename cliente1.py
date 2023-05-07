@@ -45,8 +45,10 @@ class Vista:
 
 
 class Modelo:
-    def __init__(self, cola,view=None, host='localhost'):
+    def __init__(self, cola,view=None, host='localhost', name="cliente1"):
         self.view = view
+        self.host=host
+        self.name=name
         #Yo cliente 1
         #establecer una conexión con el servidor RabbitMQ
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=host))
@@ -83,7 +85,16 @@ class Modelo:
         print('pappa')
         #self.view.add_message(body.decode('utf-8'))
         #channel.basic_ack(delivery_tag=method.delivery_tag)*/"""
-
+    def get_users(self):
+        url = f'http://{self.host}:{15672}/api/queues'
+        response = requests.get(url, auth=("guest", "guest"))
+        queues = response.json()
+        users=list()
+        for queue in queues:
+            user=queue['name'] 
+            if user!= self.name: users.append(user)
+        return user
+    
     def close_connection(self):
         self.connection.close()
 
