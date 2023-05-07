@@ -9,7 +9,7 @@ class Vista:
         self.window = tk.Tk()
         self.window.title("Cliente 1")
 
-        self.listbox_chat = tk.Listbox(self.window, height=20, width=50)
+        self.listbox_chat = tk.Text(self.window, height=20, width=50)
         self.listbox_chat.pack()
 
         self.entry_message = tk.Entry(self.window, width=50)
@@ -20,8 +20,9 @@ class Vista:
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
 
-    def add_message(self, message):
-        self.listbox_chat.insert(tk.END, message)
+    def add_message(self, message, justify="left"):
+        self.listbox_chat.tag_configure(justify, justify=justify)
+        self.listbox_chat.insert(tk.END, message + "\n", justify)
 
     def get_message(self):
         message = self.entry_message.get()
@@ -32,7 +33,7 @@ class Vista:
         message = self.get_message()
         if message:
             self.controller.send_message(message)
-            self.add_message(message)
+            self.add_message(message, justify="right")
 
     def on_close(self):
         self.controller.close_connection()
@@ -76,7 +77,7 @@ class Modelo:
     def send_message(self, mensaje):
         #publicar mensaje en cola chat
         self.channel_send.basic_publish(exchange='', routing_key='cliente2', body=mensaje.encode('utf-8'))
-        self.view.add_message(mensaje)
+        #self.view.add_message(mensaje)
 
     """def receive_message(self, channel, method, properties, body):
         print('pappa')
@@ -90,7 +91,7 @@ class Controlador:
     def __init__(self):
         self.view = Vista(self)
         self.queue=queue.Queue()
-        self.model = Modelo(cola=self.queue)
+        self.model = Modelo(cola=self.queue,view=self.view)
 
     def send_message(self, message):
         self.model.send_message(message)
