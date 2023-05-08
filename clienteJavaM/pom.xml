@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.mitocode</groupId>
+  <artifactId>Simple-eclipse-maven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>clienteJava1</name>
+  <properties>
+	  <maven.compiler.source>17</maven.compiler.source>
+	  <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+  <dependencies>
+	 <dependency>
+    	<groupId>commons-codec</groupId>
+    	<artifactId>commons-codec</artifactId>
+		<version>1.15</version>
+	</dependency> 
+	<dependency>
+    	<groupId>com.rabbitmq</groupId>
+    	<artifactId>amqp-client</artifactId>
+    	<version>5.12.0</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.json</groupId>
+    	<artifactId>json</artifactId>
+    	<version>20210307</version>
+	</dependency>
+  </dependencies>
+</project>
+
