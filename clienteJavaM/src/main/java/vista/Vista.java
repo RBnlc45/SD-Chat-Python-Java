@@ -179,12 +179,16 @@ public class Vista extends javax.swing.JFrame {
 		
 		txtNombreU.setEditable(!b);
 		txtServerIp.setEditable(!b);
+		habilitarDesconectar(b);
 		
 		
 	}
 	
 	public void setColaDestinatario() {
-		if(controlador.cambiarsUsuario(getDestinatario())) javax.swing.JOptionPane.showMessageDialog(this, "Us se Conectó con "+ getDestinatario());
+		if(controlador.cambiarDestinatario(getDestinatario())) {
+			javax.swing.JOptionPane.showMessageDialog(this, "Usted se conectó con "+ getDestinatario());
+			chatModel.clear();
+		}
 	}
 	
 	public void habilitarDesconectar(boolean b) {
@@ -232,6 +236,7 @@ public class Vista extends javax.swing.JFrame {
 						habilitarMensajeria(true);
 						habilitarDesconectar(true);
 						javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
+						setColaDestinatario();
 					}
 					else {
 						habilitarMensajeria(false);
@@ -329,7 +334,7 @@ public class Vista extends javax.swing.JFrame {
     }
 	
 	public String getDestinatario() {
-		if(cbxDestinatario.getSelectedItem() == null) return "Mensaje";
+		if(cbxDestinatario.getSelectedItem() == null) return null;
 		else  return cbxDestinatario.getSelectedItem().toString();
 	}
 	

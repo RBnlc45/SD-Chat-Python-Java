@@ -31,12 +31,12 @@ public class Controlador {
 		}
     }
     
-    public boolean cambiarsUsuario(String destinatario) {
+    public boolean cambiarDestinatario(String destinatario) {
     	try {
 			modelo.setDestinatario(destinatario);
 			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.print(e.getCause().getMessage());
 			return false;
 		}
     }
