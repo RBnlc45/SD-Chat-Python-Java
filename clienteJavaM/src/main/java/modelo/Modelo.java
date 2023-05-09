@@ -88,7 +88,7 @@ public class Modelo {
 			    return true;
 			}
 		} catch (IOException e) {
-			return false;
+			return true;
 		}
 	}
 
