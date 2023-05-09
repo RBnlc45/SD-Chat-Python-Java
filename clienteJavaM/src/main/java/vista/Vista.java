@@ -224,6 +224,7 @@ public class Vista extends javax.swing.JFrame {
 		
 	}
 	
+	
 	// Agregar mensaje en la interfaz
 	public void agregarMensaje(String r, int v) {
 		String u;
