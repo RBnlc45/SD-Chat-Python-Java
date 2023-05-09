@@ -4,13 +4,14 @@ import queue
 
 class Controlador:
     def __init__(self):
-        self.vista = Vista(self)
+        self.cola = queue.Queue()
+        self.vista = Vista(self, self.cola)
         self.modelo = None
 
         self.estaServerDisponible('localhost')
-        self.estaUsuarioDisponible('mateo')
-        self.usuariosDisponibles('mateo')
-        self.cambiarDestinatario('juan')
+        self.estaUsuarioDisponible('chusino')
+        self.usuariosDisponibles('chusino')
+        self.cambiarDestinatario('JoseMaria')
 
 
     def enviarMensaje(self, mensaje):
@@ -21,10 +22,12 @@ class Controlador:
 
     def estaServerDisponible(self, host):
         try:
-            self.modelo = Modelo(self)
+            self.modelo = Modelo(self, self.cola)
             self.modelo.conectar(host)
+            print('Se conecto')
             return True
         except:
+            print('No se conecto')
             return False
 
     def cambiarDestinatario(self, destinatario):
@@ -36,11 +39,15 @@ class Controlador:
             return False
 
     def estaUsuarioDisponible(self, usuario):
-        if self.modelo.estaCanalUsado(usuario): return False
-        else: return True
+        self.modelo.setNombre(usuario)
+        if self.modelo.estaCanalUsado(usuario):
+            print('Ocupado')
+            return False
+        else:
+            print('Libre')
+            return True
 
     def usuariosDisponibles(self, usuario):
-        self.modelo.setNombre(usuario)
         return self.modelo.obtenerUsuarios()
 
     def close_connection(self):

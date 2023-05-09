@@ -2,7 +2,8 @@ import tkinter as tk
 import queue
 
 class Vista:
-    def __init__(self, controller):
+    def __init__(self, controller, cola):
+        self.cola = cola
         self.controller = controller
         self.window = tk.Tk()
         self.window.title("Cliente 2")
@@ -39,3 +40,4 @@ class Vista:
 
     def run(self):
         self.window.mainloop()
+        self.cola.put(None)

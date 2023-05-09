@@ -42,12 +42,16 @@ public class Controlador {
     }
     
     public boolean estaUsuarioDisponible(String user) {
-    	if(this.modelo.isCanalUsado(user)) return false;
-    	else return true;
+        modelo.setName(user);
+    	if(this.modelo.isCanalUsado(user)){
+            return false;
+        }
+    	else {
+            return true;
+        }
     }
     
     public String[] usuariosDisponibles(String user) {
-    	modelo.setName(user);
     	return this.modelo.getUsuarios().toArray(new String[0]);
     }
 
