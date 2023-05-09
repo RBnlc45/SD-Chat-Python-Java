@@ -31,6 +31,16 @@ public class Controlador {
 		}
     }
     
+    public boolean cambiarsUsuario(String destinatario) {
+    	try {
+			modelo.setDestinatario(destinatario);
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+    }
+    
     public boolean estaUsuarioDisponible(String user) {
     	// En Prueba
     	if(this.modelo.isCanalUsado(user)) return false;

@@ -2,11 +2,7 @@ package vista;
 import java.awt.Dialog.ModalExclusionType;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-
-
-
-
-
+import javax.swing.JPanel;
 
 public class Vista extends javax.swing.JFrame {
 
@@ -20,8 +16,9 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.DefaultListModel<javax.swing.JPanel> chatModel;
     private controlador.Controlador controlador;
     private javax.swing.JComboBox<String> cbxDestinatario;
-    private javax.swing.JPanel panelTitulo, panelUsuario, panel_1, panel_2, panel_3, panel_4;
+    private javax.swing.JPanel panelTitulo, panelUsuario, panel_1, panel_2, panel_3;
     private javax.swing.JLabel lblClienteJava;
+    private JPanel panel_4;
 	
 	public Vista(controlador.Controlador controlador) {
 		setAutoRequestFocus(false);
@@ -66,11 +63,14 @@ public class Vista extends javax.swing.JFrame {
         jLabel2.setText("Nombre:");
         jPanelDestinatrio.add(jLabel2);      
         cbxDestinatario = new javax.swing.JComboBox<String>();
+        cbxDestinatario.addActionListener(e -> {
+        	setColaDestinatario();
+        });
         cbxDestinatario.setEditable(false);
-        //cbxDestinatario.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] {"luis", "juan"}));
         jPanelDestinatrio.add(cbxDestinatario);
-        jPanelNorte.add(jPanelDestinatrio, java.awt.BorderLayout.SOUTH);       
-        panel_4 = new javax.swing.JPanel();
+        jPanelNorte.add(jPanelDestinatrio, java.awt.BorderLayout.SOUTH);
+        
+        panel_4 = new JPanel();
         jPanelDestinatrio.add(panel_4);
         getContentPane().add(jPanelNorte, java.awt.BorderLayout.PAGE_START);       
         panelTitulo = new javax.swing.JPanel();
@@ -170,25 +170,37 @@ public class Vista extends javax.swing.JFrame {
         pack();
     }
 	
-	public void bloquearComponentes(boolean b) {
+	public void habilitarMensajeria(boolean b) {
 		
 		cbxDestinatario.setEnabled(b);
 		txtMensaje.setEditable(b);
 		btnEnviar.setEnabled(b);
-		btnDesconectar.setEnabled(b);
-		btnDesconectar.setVisible(b);
+		
 		
 		txtNombreU.setEditable(!b);
 		txtServerIp.setEditable(!b);
+		
+		
+	}
+	
+	public void setColaDestinatario() {
+		if(controlador.cambiarsUsuario(getDestinatario())) javax.swing.JOptionPane.showMessageDialog(this, "Us se Conectó con "+ getDestinatario());
+	}
+	
+	public void habilitarDesconectar(boolean b) {
+		btnDesconectar.setEnabled(b);
+		btnDesconectar.setVisible(b);
+
 		btnConectar.setEnabled(!b);
 		btnConectar.setVisible(!b);
+		
 	}
 	
 	/*                         Funciones                                 */
 	
 	public void iniciar() {
 		this.setVisible(true);
-		bloquearComponentes(false);
+		habilitarMensajeria(false);
 		//agregarMensaje("hola", 1);
 		//agregarMensaje("hola como estas", 2);
 	
@@ -217,11 +229,13 @@ public class Vista extends javax.swing.JFrame {
 				if(controlador.estaUsuarioDisponible(getNameUser())) {
 					cbxDestinatario.setModel(new javax.swing.DefaultComboBoxModel<String>(controlador.usuariosDisponibles(getNameUser())));
 					if(cbxDestinatario.getItemCount()!=0) {
-						bloquearComponentes(true);
+						habilitarMensajeria(true);
+						habilitarDesconectar(true);
 						javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
 					}
 					else {
-						bloquearComponentes(false);
+						habilitarMensajeria(false);
+						habilitarDesconectar(true);
 						javax.swing.JOptionPane.showMessageDialog(this, "No hay usuarios disponibles, intente otra vez");
 					}
 				}else {
@@ -245,7 +259,8 @@ public class Vista extends javax.swing.JFrame {
 	
 	public void cerrarConexion() throws IOException, TimeoutException {
 		controlador.cerrarConexion();
-		bloquearComponentes(false);
+		habilitarMensajeria(false);
+		habilitarDesconectar(false);
 		
 	}
 	

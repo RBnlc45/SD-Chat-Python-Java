@@ -7,7 +7,6 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.GetResponse;
 
 public class Modelo {
 	private String host, name, destinatario;
@@ -25,8 +24,9 @@ public class Modelo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setDestinatario(String destinatario) {
-		this.name = destinatario;
+	public void setDestinatario(String destinatario) throws IOException {
+		this.destinatario = destinatario;
+		this.canalEnviar.queueDeclare(destinatario, false, false, false, null);
 	}
 	public void conectar(String host) throws IOException, TimeoutException {
 		// Establecer una conexión con el servidor RabbitMQ
@@ -35,22 +35,7 @@ public class Modelo {
         factory.setHost(this.host);
         this.conexion = factory.newConnection();
 	}
-	// name->cliente1, destinatario->cliente2
-	public void crearCanal() throws IOException {
-        //this.canalRecibir = conexion.createChannel();  // Canal para recibir mensajes
-        //this.canalEnviar = conexion.createChannel();  // Canal para enviar mensajes
-
-        // Declarar una cola recibir en el servidor RabbitMQ
-        //this.canalRecibir.queueDeclare(name, false, false, false, null);
-        // Cola para enviar los mensajes a cliente 2
-        this.canalEnviar.queueDeclare(destinatario, false, false, false, null);
-
-        // Recibir los mensajes colocados en mi queue cliente1
-        this.canalRecibir.basicConsume(name, true, (consumerTag, delivery) -> {
-            String message = new String(delivery.getBody(), "UTF-8");
-            this.controlador.mostrarMensaje(message, 2);
-        }, consumerTag -> {});
-	}
+	
 	
 	public void enviarMensaje(String mensaje, String ipAddress) throws IOException, TimeoutException {      
 		// Publicar mensaje en cola chat
@@ -90,6 +75,7 @@ public class Modelo {
 	public boolean isCanalUsado(String name){
 		try {
 			this.canalRecibir = this.conexion.createChannel();
+			this.canalEnviar = this.conexion.createChannel();
 			this.canalRecibir.queueDeclare(name, false, false, false, null);
 			AMQP.Queue.DeclareOk declareOk = this.canalRecibir.queueDeclarePassive(name);
 			int consumerCount = declareOk.getConsumerCount();
@@ -109,7 +95,7 @@ public class Modelo {
     public void cerrarConexion() throws IOException, TimeoutException {
     	if(conexion != null) this.conexion.close();
     }
-    
+    // Hilos  para canal del usuario
     private class ConsumingThread extends Thread{
     	Channel canal;
     	String nombre;
