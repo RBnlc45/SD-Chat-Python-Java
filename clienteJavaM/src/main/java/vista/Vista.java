@@ -189,9 +189,10 @@ public class Vista extends javax.swing.JFrame {
 	public void iniciar() {
 		this.setVisible(true);
 		bloquearComponentes(false);
-		agregarMensaje("hola", 1);
-		agregarMensaje("hola como estas", 2);
-		agregarMensaje("Estoy bien, cuentame que has hecho este dia, todo te ha salido bien, esta bien la familia?", 1);
+		//agregarMensaje("hola", 1);
+		//agregarMensaje("hola como estas", 2);
+	
+		//agregarMensaje("Estoy bien, cuentame que has hecho este dia, todo te ha salido bien, esta bien la familia?", 1);
 		
 		
 	}
@@ -215,7 +216,14 @@ public class Vista extends javax.swing.JFrame {
 			if(controlador.estaServerDisponible(getIpServer())) {
 				if(controlador.estaUsuarioDisponible(getNameUser())) {
 					cbxDestinatario.setModel(new javax.swing.DefaultComboBoxModel<String>(controlador.usuariosDisponibles(getNameUser())));
-					bloquearComponentes(true);
+					if(cbxDestinatario.getItemCount()!=0) {
+						bloquearComponentes(true);
+						javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
+					}
+					else {
+						bloquearComponentes(false);
+						javax.swing.JOptionPane.showMessageDialog(this, "No hay usuarios disponibles, intente otra vez");
+					}
 				}else {
 					javax.swing.JOptionPane.showMessageDialog(this, "El usuario ya está en uso");
 					try {
@@ -321,7 +329,7 @@ public class Vista extends javax.swing.JFrame {
 	public void enviarMensaje() throws java.io.IOException, java.util.concurrent.TimeoutException {
         String message = getMensaje();
         if (!message.isEmpty()) {
-        	//controlador.enviarMensaje(message, getIpServer());
+        	controlador.enviarMensaje(message, getIpServer());
             agregarMensaje(message,1);
             txtMensaje.setText("");
             

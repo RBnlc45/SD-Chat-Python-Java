@@ -9,7 +9,6 @@ public class Controlador {
 
     public Controlador() throws IOException, TimeoutException {
         this.vista= new vista.Vista(this);
-        this.modelo= new modelo.Modelo(this);
     }	
     
 
@@ -23,6 +22,7 @@ public class Controlador {
     
     public boolean estaServerDisponible(String host) {
     	try {
+    		this.modelo= new modelo.Modelo(this);
 			this.modelo.conectar(host);
 			return true;
 		} catch (IOException | TimeoutException e) {
@@ -33,7 +33,7 @@ public class Controlador {
     
     public boolean estaUsuarioDisponible(String user) {
     	// En Prueba
-    	if(this.modelo.getUsuarios().contains(user)) return false;
+    	if(this.modelo.isCanalUsado(user)) return false;
     	else return true;
     }
     

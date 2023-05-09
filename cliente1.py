@@ -45,7 +45,7 @@ class Vista:
 
 
 class Modelo:
-    def __init__(self, cola,view=None, host='localhost', name="cliente1"):
+    def __init__(self, cola,view=None, host='localhost', name="jorge"):
         self.view = view
         self.host=host
         self.name=name
@@ -56,13 +56,13 @@ class Modelo:
         self.channel_send = self.connection.channel()  # Canal para enviar mensajes
 
         # declarar una cola recibir en el servidor RabbitMQ
-        self.channel_receive.queue_declare(queue="cliente1")
+        self.channel_receive.queue_declare(queue=name)
         #Cola para enviar los mensajes a cliente 2
-        self.channel_send.queue_declare(queue="cliente2")
+        #self.channel_send.queue_declare(queue="cliente2")
 
         def start_consuming(cola):
             #Recibir los mensajes colocados en mi queu cliente1
-            self.channel_receive.basic_consume(queue='cliente1', on_message_callback=self.callback, auto_ack=True)
+            self.channel_receive.basic_consume(queue=name, on_message_callback=self.callback, auto_ack=True)
             try:
                 self.channel_receive.start_consuming()
             except KeyboardInterrupt:
