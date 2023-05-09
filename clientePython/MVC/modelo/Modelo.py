@@ -4,10 +4,8 @@ import threading
 
 class Modelo:
 
-    def __init__(self, controlador, cola):
+    def __init__(self, controlador):
         self.controlador = controlador
-
-        self.cola = cola
 
         self.conexion = None
         self.canalRecibir = None
@@ -46,21 +44,13 @@ class Modelo:
         return users
 
     def estaCanalUsado(self, nombre):
-        @staticmethod
-        def start_consuming(controlador, canalRecibir, name, cola):
+        def start_consuming():
             def callback(ch, method, properties, body):
-                controlador.mostrarMensaje(body.decode('utf-8'))
+                self.controlador.mostrarMensaje(body.decode('utf-8'))
 
             # Recibir los mensajes colocados en mi queue
-            canalRecibir.basic_consume(queue=name, on_message_callback=callback, auto_ack=True)
-
-            try:
-                canalRecibir.start_consuming()
-            except KeyboardInterrupt:
-                canalRecibir.stop_consuming()
-
-            # Enviar un mensaje especial a la cola para indicar que la suscripción ha sido detenida
-            cola.put(None)
+            self.canalRecibir.basic_consume(queue=nombre, on_message_callback=callback, auto_ack=True)
+            self.canalRecibir.start_consuming()
 
         try:
             self.canalRecibir = self.conexion.channel()
@@ -68,7 +58,7 @@ class Modelo:
             colaRecibir=self.canalRecibir.queue_declare(queue=nombre)
 
             if (colaRecibir.method.consumer_count == 0) :
-                threading.Thread(target=start_consuming, args=(self.controlador, self.canalRecibir, self.nombre, self.cola,), daemon=True).start()
+                threading.Thread(target=start_consuming, daemon=True).start()
                 return False
             else:
                 return True

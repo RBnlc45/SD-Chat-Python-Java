@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b706240-2c74-4102-aad0-46f53bfd432f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ChatRabbitMQ.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/clientePython.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/inspectionProfiles/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/controlador/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/controlador/Controlador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/controlador/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/controlador/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/modelo/Modelo.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/modelo/Modelo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/modelo/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/modelo/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/vista/Vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/vista/Vista.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/vista/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/vista/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/desktop.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rabbitMQ.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/rabbitMQ.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cliente2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../cliente2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../clientePython/MVC/controlador/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/controlador/Controlador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../clientePython/MVC/modelo/Modelo.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/modelo/Modelo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../clientePython/MVC/vista/Vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clientePython/MVC/vista/Vista.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +36,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/reino/OneDrive/Documentos/GitHub/SD-Chat-Python-Java/ChatRabbitMQ"
+    "last_opened_file_path": "C:/Users/reino/OneDrive/Documentos/GitHub/SD-Chat-Python-Java"
   }
 }]]></component>
   <component name="RecentsManager">

@@ -1,11 +1,9 @@
 from MVC.modelo.Modelo import Modelo
 from MVC.vista.Vista import Vista
-import queue
 
 class Controlador:
     def __init__(self):
-        self.cola = queue.Queue()
-        self.vista = Vista(self, self.cola)
+        self.vista = Vista(self)
         self.modelo = None
 
         self.estaServerDisponible('localhost')
@@ -17,12 +15,13 @@ class Controlador:
     def enviarMensaje(self, mensaje):
         self.modelo.enviarMensaje(mensaje)
 
-    def mostrarMensaje(self, message):
-        self.vista.add_message(message)
+    def mostrarMensaje(self, mensaje):
+        #self.vista.add_message(mensaje)
+        print(mensaje)
 
     def estaServerDisponible(self, host):
         try:
-            self.modelo = Modelo(self, self.cola)
+            self.modelo = Modelo(self)
             self.modelo.conectar(host)
             print('Se conecto')
             return True
