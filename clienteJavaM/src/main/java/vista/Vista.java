@@ -170,62 +170,24 @@ public class Vista extends javax.swing.JFrame {
         pack();
     }
 	
-	public void habilitarMensajeria(boolean b) {
-		
-		cbxDestinatario.setEnabled(b);
-		txtMensaje.setEditable(b);
-		btnEnviar.setEnabled(b);
-		
-		
-		txtNombreU.setEditable(!b);
-		txtServerIp.setEditable(!b);
-		habilitarDesconectar(b);
-		
-		
-	}
 	
-	public void setColaDestinatario() {
-		if(controlador.cambiarDestinatario(getDestinatario())) {
-			javax.swing.JOptionPane.showMessageDialog(this, "Usted se conectó con "+ getDestinatario());
-			chatModel.clear();
-		}
-	}
-	
-	public void habilitarDesconectar(boolean b) {
-		btnDesconectar.setEnabled(b);
-		btnDesconectar.setVisible(b);
-
-		btnConectar.setEnabled(!b);
-		btnConectar.setVisible(!b);
-		
-	}
 	
 	/*                         Funciones                                 */
 	
 	public void iniciar() {
 		this.setVisible(true);
 		habilitarMensajeria(false);
-		//agregarMensaje("hola", 1);
-		//agregarMensaje("hola como estas", 2);
+		agregarMensaje("hola", 1);
+		agregarMensaje("hola como estas", 2);
 	
-		//agregarMensaje("Estoy bien, cuentame que has hecho este dia, todo te ha salido bien, esta bien la familia?", 1);
+		agregarMensaje("Estoy bien, cuentame que has hecho este dia, todo te ha salido bien, esta bien la familia?", 1);
 		
 		
 	}
 	
-	// antes de cerrar la ventana al salir
-	public void al_cerrar() throws IOException, TimeoutException {
-		controlador.cerrarConexion();
-		dispose();
-	}
 	
-	public void agregarMensaje(String r, int v) {
-		String u;
-		if(v == 1)  u = "yo";
-		else u = getDestinatario();
-        chatModel.addElement(createItemPanel(r, v, u));
-        
-    }
+	
+	
 	
 	public void generarConexion()  {
 		if(getIpServer().length() != 0 && getNameUser().length() != 0) {
@@ -262,13 +224,15 @@ public class Vista extends javax.swing.JFrame {
 		
 	}
 	
-	public void cerrarConexion() throws IOException, TimeoutException {
-		controlador.cerrarConexion();
-		habilitarMensajeria(false);
-		habilitarDesconectar(false);
-		
-	}
-	
+	// Agregar mensaje en la interfaz
+	public void agregarMensaje(String r, int v) {
+		String u;
+		if(v == 1)  u = "yo"; // si v=1 es el mensaje que envia 
+		else u = getDestinatario(); // si v=2 el mensaje que recibe 
+        chatModel.addElement(createItemPanel(r, v, u)); // agragar al jList un elemento de tipo JPanel
+        
+    }
+	// Funcion para crear el panel
 	private javax.swing.JPanel createItemPanel(String mensaje, int tipo, String usuario) {
 		//Trabajar en el mensaje en unos espacios determinados
 		String aux = contarCaracteres(mensaje, 38);
@@ -328,7 +292,7 @@ public class Vista extends javax.swing.JFrame {
             return value;
         }
 	}
-	// funcion para obtener mensaje del campo texto
+	// Getters para los campos de texto
 	public String getMensaje() {
         return txtMensaje.getText();
     }
@@ -345,6 +309,7 @@ public class Vista extends javax.swing.JFrame {
 	public String getNameUser() {
 		return txtNombreU.getText();
 	}
+	// Termina Getters
 	
 	public void enviarMensaje() throws java.io.IOException, java.util.concurrent.TimeoutException {
         String message = getMensaje();
@@ -355,7 +320,48 @@ public class Vista extends javax.swing.JFrame {
             
         }
     }
+	// funcion para el control de botones, textos y ComboBox.
+	public void habilitarMensajeria(boolean b) {
+		
+		cbxDestinatario.setEnabled(b);
+		txtMensaje.setEditable(b);
+		btnEnviar.setEnabled(b);
+		
+		
+		txtNombreU.setEditable(!b);
+		txtServerIp.setEditable(!b);
+		habilitarDesconectar(b);
+		
+		
+	}
+	public void habilitarDesconectar(boolean b) {
+		btnDesconectar.setEnabled(b);
+		btnDesconectar.setVisible(b);
+
+		btnConectar.setEnabled(!b);
+		btnConectar.setVisible(!b);
+		
+	}
+	// cargar destinatarios en el JComboBox para las colas
+	public void setColaDestinatario() {
+		if(controlador.cambiarDestinatario(getDestinatario())) {
+			javax.swing.JOptionPane.showMessageDialog(this, "Usted se conectó con "+ getDestinatario());
+			chatModel.clear();
+		}
+	}
 	
 	
+	// antes de cerrar la ventana al cerrar la interfaz
+	public void al_cerrar() throws IOException, TimeoutException {
+		controlador.cerrarConexion();
+		dispose();
+	}
+	// funcion para cerrar la conexion
+	public void cerrarConexion() throws IOException, TimeoutException {
+		controlador.cerrarConexion();
+		habilitarMensajeria(false);
+		habilitarDesconectar(false);
+		//0101001
+	}
 
 }

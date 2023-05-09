@@ -42,7 +42,6 @@ public class Controlador {
     }
     
     public boolean estaUsuarioDisponible(String user) {
-    	// En Prueba
     	if(this.modelo.isCanalUsado(user)) return false;
     	else return true;
     }
@@ -53,7 +52,7 @@ public class Controlador {
     }
 
     public void cerrarConexion() throws IOException, TimeoutException {
-        this.modelo.cerrarConexion();
+        if(this.modelo != null) this.modelo.cerrarConexion();
     }
 
     public void iniciar() {
