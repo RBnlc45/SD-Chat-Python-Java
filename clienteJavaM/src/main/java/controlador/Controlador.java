@@ -9,11 +9,37 @@ public class Controlador {
 
     public Controlador() throws IOException, TimeoutException {
         this.vista= new vista.Vista(this);
-        this.modelo= new modelo.Modelo(vista);
-    }
+        this.modelo= new modelo.Modelo(this);
+    }	
+    
 
     public void enviarMensaje(String mensaje, String ipAddress) throws IOException, TimeoutException{
         this.modelo.enviarMensaje(mensaje,ipAddress);
+    }
+    
+    public void mostrarMensaje(String m, int t) {
+    	this.vista.agregarMensaje(m, t);
+    }
+    
+    public boolean estaServerDisponible(String host) {
+    	try {
+			this.modelo.conectar(host);
+			return true;
+		} catch (IOException | TimeoutException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+    }
+    
+    public boolean estaUsuarioDisponible(String user) {
+    	// En Prueba
+    	if(this.modelo.getUsuarios().contains(user)) return false;
+    	else return true;
+    }
+    
+    public String[] usuariosDisponibles(String user) {
+    	modelo.setName(user);
+    	return this.modelo.getUsuarios().toArray(new String[0]);
     }
 
     public void cerrarConexion() throws IOException, TimeoutException {

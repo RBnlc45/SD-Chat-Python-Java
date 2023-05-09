@@ -9,12 +9,12 @@ import com.rabbitmq.client.ConnectionFactory;
 
 public class Modelo {
 	private String host, name, destinatario;
-	private vista.Vista vista;
+	private controlador.Controlador controlador;
 	private Channel canalRecibir, canalEnviar; 
 	private Connection conexion;
 	private ConnectionFactory factory;
-	public Modelo(vista.Vista view) throws IOException, TimeoutException {
-        this.vista = view;
+	public Modelo(controlador.Controlador controlador) throws IOException, TimeoutException {
+        this.controlador = controlador;
     }
 	public void setHost(String host) {
 		this.host = host;
@@ -44,14 +44,14 @@ public class Modelo {
         // Recibir los mensajes colocados en mi queue cliente1
         this.canalRecibir.basicConsume(name, true, (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
-            this.vista.agregarMensaje(message, 2);
+            this.controlador.mostrarMensaje(message, 2);
         }, consumerTag -> {});
 	}
 	
 	public void enviarMensaje(String mensaje, String ipAddress) throws IOException, TimeoutException {      
 		// Publicar mensaje en cola chat
         this.canalEnviar.basicPublish("", destinatario, null, mensaje.getBytes("UTF-8"));
-        this.vista.agregarMensaje(mensaje, 2);
+        this.controlador.mostrarMensaje(mensaje, 2);
     }
 	
 	public java.util.List<String> getUsuarios() {
@@ -71,7 +71,9 @@ public class Modelo {
 	            for (int i = 0; i < queues.length(); i++) {
 	            	org.json.JSONObject queue = queues.getJSONObject(i);
 	                String user = queue.getString("name");
-	                users.add(user);
+	                if (!user.equals(name)) {
+	                    users.add(user);
+	                }
 	            }
 	        }
 	        reader.close();

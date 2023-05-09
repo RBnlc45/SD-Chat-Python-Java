@@ -120,7 +120,12 @@ public class Vista extends javax.swing.JFrame {
         
         btnDesconectar = new javax.swing.JButton("Desconectar");
         btnDesconectar.addActionListener(e -> {
-        	cerrarConexion();
+        	try {
+				cerrarConexion();
+			} catch (IOException | TimeoutException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         });
         panel_3.add(btnDesconectar);
 
@@ -205,12 +210,35 @@ public class Vista extends javax.swing.JFrame {
         
     }
 	
-	public void generarConexion() {
-		bloquearComponentes(true);
+	public void generarConexion()  {
+		if(getIpServer().length() != 0 && getNameUser().length() != 0) {
+			if(controlador.estaServerDisponible(getIpServer())) {
+				if(controlador.estaUsuarioDisponible(getNameUser())) {
+					cbxDestinatario.setModel(new javax.swing.DefaultComboBoxModel<String>(controlador.usuariosDisponibles(getNameUser())));
+					bloquearComponentes(true);
+				}else {
+					javax.swing.JOptionPane.showMessageDialog(this, "El usuario ya está en uso");
+					try {
+						controlador.cerrarConexion();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TimeoutException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			} else javax.swing.JOptionPane.showMessageDialog(this, "No se logró la conexión con el Servidor RabbitMq");
+			
+		}else javax.swing.JOptionPane.showMessageDialog(this, "Complete los Campos necesarios");
+		
 	}
 	
-	public void cerrarConexion() {
+	public void cerrarConexion() throws IOException, TimeoutException {
+		controlador.cerrarConexion();
 		bloquearComponentes(false);
+		
 	}
 	
 	private javax.swing.JPanel createItemPanel(String mensaje, int tipo, String usuario) {
@@ -286,11 +314,16 @@ public class Vista extends javax.swing.JFrame {
 		return txtServerIp.getText();
 	}
 	
+	public String getNameUser() {
+		return txtNombreU.getText();
+	}
+	
 	public void enviarMensaje() throws java.io.IOException, java.util.concurrent.TimeoutException {
         String message = getMensaje();
         if (!message.isEmpty()) {
         	//controlador.enviarMensaje(message, getIpServer());
             agregarMensaje(message,1);
+            txtMensaje.setText("");
             
         }
     }
