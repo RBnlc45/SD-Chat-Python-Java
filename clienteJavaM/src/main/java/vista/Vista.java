@@ -177,12 +177,6 @@ public class Vista extends javax.swing.JFrame {
 	public void iniciar() {
 		this.setVisible(true);
 		habilitarMensajeria(false);
-		agregarMensaje("hola", 1);
-		agregarMensaje("hola como estas", 2);
-	
-		agregarMensaje("Estoy bien, cuentame que has hecho este dia, todo te ha salido bien, esta bien la familia?", 1);
-		
-		
 	}
 	
 	

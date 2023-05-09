@@ -26,7 +26,7 @@ public class Modelo {
 	}
 	public void setDestinatario(String destinatario) throws IOException {
 		this.destinatario = destinatario;
-		this.canalEnviar.queueDeclare(destinatario, true, false, false, null);
+		this.canalEnviar.queueDeclare(destinatario, false, false, false, null);
 	}
 	public void conectar(String host) throws IOException, TimeoutException {
 		// Establecer una conexión con el servidor RabbitMQ
@@ -76,11 +76,11 @@ public class Modelo {
 		try {
 			this.canalRecibir = this.conexion.createChannel();
 			this.canalEnviar = this.conexion.createChannel();
-			this.canalRecibir.queueDeclare(name, true, false, false, null);
+			this.canalRecibir.queueDeclare(name, false, false, false, null);
+			
 			AMQP.Queue.DeclareOk declareOk = this.canalRecibir.queueDeclarePassive(name);
 			int consumerCount = declareOk.getConsumerCount();
 			if (consumerCount == 0) {
-				//this.canalRecibir.queueDeclare(name, false, false, false, null);
 				ConsumingThread th=new ConsumingThread(this.canalRecibir, name, this.controlador);
 				th.start();
 				return false;

@@ -45,7 +45,7 @@ class Vista:
 
 
 class Modelo:
-    def __init__(self, cola,view=None, host='localhost', name="jorge"):
+    def __init__(self, cola,view=None, host='localhost', name="renato"):
         self.view = view
         self.host=host
         self.name=name
@@ -56,7 +56,8 @@ class Modelo:
         self.channel_send = self.connection.channel()  # Canal para enviar mensajes
 
         # declarar una cola recibir en el servidor RabbitMQ
-        self.channel_receive.queue_declare(queue=name)
+        cola=self.channel_receive.queue_declare(queue=name)
+        print(cola.method.consumer_count)
         #Cola para enviar los mensajes a cliente 2
         #self.channel_send.queue_declare(queue="cliente2")
 

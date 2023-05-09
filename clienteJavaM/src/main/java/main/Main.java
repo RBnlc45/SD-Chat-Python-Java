@@ -7,6 +7,5 @@ public class Main {
 	public static void main(String[] args) throws IOException, TimeoutException {
 		controlador.Controlador controlador = new controlador.Controlador();
 		controlador.iniciar();
-		// luis estuvo aqui
 	}
 }
