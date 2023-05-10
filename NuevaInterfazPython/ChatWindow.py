@@ -74,6 +74,16 @@ class Ui_MainWindow(object):
         font.setBold(False)
         self.pushButtonConectar.setFont(font)
         self.pushButtonConectar.setObjectName("pushButtonConectar")
+        self.pushButtonConectar.setVisible(True)
+        
+        self.pushButtonDesconectar = QtWidgets.QPushButton(self.groupBoxUsuario)
+        self.pushButtonDesconectar.setGeometry(QtCore.QRect(520, 70, 151, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(False)
+        self.pushButtonDesconectar.setFont(font)
+        self.pushButtonDesconectar.setObjectName("pushButtonDesconectar")
+        self.pushButtonDesconectar.setVisible(False)
         
         self.groupBoxDestinatario = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxDestinatario.setGeometry(QtCore.QRect(10, 150, 691, 71))
@@ -120,8 +130,9 @@ class Ui_MainWindow(object):
         font.setBold(True)
         self.groupBoxChat.setFont(font)
         self.groupBoxChat.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
-        self.groupBoxChat.setObjectName("groupBoxChat")
+        self.groupBoxChat.setObjectName("groupBoxChat")  
         
+        #Scroll Area
         self.scrollAreaChat = QtWidgets.QScrollArea(self.groupBoxChat)
         self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 204))
         self.scrollAreaChat.setMinimumSize(QtCore.QSize(669, 20))
@@ -147,70 +158,17 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
         
-        self.groupBoxMsjDes = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
-        self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, 60))
-        self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(400, 60))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(False)
-        self.groupBoxMsjDes.setFont(font)
-        self.groupBoxMsjDes.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.DefaultContextMenu)
-        self.groupBoxMsjDes.setStyleSheet("QGroupBox {border: 1px solid rgb(148, 148, 148);\n"
-"border-radius: 5px; \n"
-"margin-top: 0.5em;}\n"
-"QGroupBox::title {subcontrol-origin: margin;\n"
-"subcontrol-position: top left;\n"
-"padding: 0 3px;}")
-        self.groupBoxMsjDes.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
-        self.groupBoxMsjDes.setObjectName("groupBoxMsjDes")
-        
-        self.labelDest = QtWidgets.QLabel(self.groupBoxMsjDes)
-        self.labelDest.setGeometry(QtCore.QRect(10, 30, 381, 21))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setItalic(True)
-        self.labelDest.setFont(font)
-        self.labelDest.setStyleSheet("border: unset;")
-        self.labelDest.setObjectName("labelDest")
-        self.verticalLayout.addWidget(self.groupBoxMsjDes)
-        
-        self.groupBoxMsjUsu = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
-        self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0, 60))
-        self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(400, 60))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(False)
-        self.groupBoxMsjUsu.setFont(font)
-        self.groupBoxMsjUsu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
-        self.groupBoxMsjUsu.setStyleSheet("QGroupBox {border: 1px solid rgb(148, 148, 148);\n"
-"border-radius: 5px; \n"
-"margin-top: 0.5em;}\n"
-"QGroupBox::title {subcontrol-origin: margin;\n"
-"subcontrol-position: top left;\n"
-"padding: 0 3px;}")
-        self.groupBoxMsjUsu.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
-        self.groupBoxMsjUsu.setObjectName("groupBoxMsjUsu")
-        
-        self.labelUsu = QtWidgets.QLabel(self.groupBoxMsjUsu)
-        self.labelUsu.setGeometry(QtCore.QRect(10, 30, 381, 21))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setItalic(True)
-        self.labelUsu.setFont(font)
-        self.labelUsu.setStyleSheet("border: none")
-        self.labelUsu.setObjectName("labelUsu")
-        self.verticalLayout.addWidget(self.groupBoxMsjUsu)
-        
         self.scrollAreaChat.setWidget(self.scrollAreaWidgetContents)
         
+        #Fondo del chat
         self.fondo = QtWidgets.QLabel(self.groupBoxChat)
         self.fondo.setGeometry(QtCore.QRect(10, 30, 671, 411))
         self.fondo.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(0, 0, 0);")
         self.fondo.setText("")
         self.fondo.setObjectName("Fondo")
-        self.fondo.raise_()
         
+        #Traemos el scroll area al frente
         self.scrollAreaChat.raise_()
         
         self.groupBoxMensaje = QtWidgets.QGroupBox(self.centralwidget)
@@ -252,17 +210,90 @@ class Ui_MainWindow(object):
         self.labelNombreUsuario.setText(_translate("MainWindow", "Nombre:"))
         self.labelServer.setText(_translate("MainWindow", "Server IP:"))
         self.pushButtonConectar.setText(_translate("MainWindow", "Conectar"))
+        self.pushButtonDesconectar.setText(_translate("MainWindow", "Desconectar"))
         self.groupBoxDestinatario.setTitle(_translate("MainWindow", "Datos Destinatario"))
         self.labelNombreDestinatario.setText(_translate("MainWindow", "Nombre:"))
         self.labelTitulo.setText(_translate("MainWindow", "Cliente Python"))
         self.groupBoxChat.setTitle(_translate("MainWindow", "Chat"))
         self.groupBoxMensaje.setTitle(_translate("MainWindow", "Mensaje"))
         self.pushButtonEnviar.setText(_translate("MainWindow", "Enviar"))
-        
-        self.groupBoxMsjDes.setTitle(_translate("MainWindow", "Destinatario"))
-        self.labelDest.setText(_translate("MainWindow", "Texto Destinatario"))
-        self.groupBoxMsjUsu.setTitle(_translate("MainWindow", "Yo"))
-        self.labelUsu.setText(_translate("MainWindow", "Texto Usuario"))
 
-    def cargar_mensajes():
-        pass
+    def cargar_mensajes_ui(self, nombre_des: str, mensajes: list[tuple[str, bool]]):
+        self.scrollAreaWidgetContents.setParent(None)
+        
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 204))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        
+        #Layout vertical para el scroll area
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout.setObjectName("verticalLayout")
+        
+        self.scrollAreaChat.setWidget(self.scrollAreaWidgetContents)
+        
+        _translate = QtCore.QCoreApplication.translate
+
+        for mensaje in mensajes:
+            if mensaje[1]:
+                
+                self.groupBoxMsjDes = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
+                self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, 60))
+                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(400, 60))
+                font = QtGui.QFont()
+                font.setPointSize(14)
+                font.setBold(False)
+                self.groupBoxMsjDes.setFont(font)
+                self.groupBoxMsjDes.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.DefaultContextMenu)
+                self.groupBoxMsjDes.setStyleSheet("QGroupBox {border: 1px solid rgb(148, 148, 148);\n"
+        "border-radius: 5px; \n"
+        "margin-top: 0.5em;}\n"
+        "QGroupBox::title {subcontrol-origin: margin;\n"
+        "subcontrol-position: top left;\n"
+        "padding: 0 3px;}")
+                self.groupBoxMsjDes.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
+                self.groupBoxMsjDes.setObjectName("groupBoxMsjDes")
+                
+                self.labelDest = QtWidgets.QLabel(self.groupBoxMsjDes)
+                self.labelDest.setGeometry(QtCore.QRect(10, 30, 381, 21))
+                font = QtGui.QFont()
+                font.setPointSize(12)
+                font.setItalic(True)
+                self.labelDest.setFont(font)
+                self.labelDest.setStyleSheet("border: unset;")
+                self.labelDest.setObjectName("labelDest")
+                self.verticalLayout.addWidget(self.groupBoxMsjDes)
+                
+                self.groupBoxMsjDes.setTitle(_translate("MainWindow", nombre_des))
+                self.labelDest.setText(_translate("MainWindow", mensaje[0]))
+                
+            else:
+                self.groupBoxMsjUsu = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
+                self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0, 60))
+                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(400, 60))
+                font = QtGui.QFont()
+                font.setPointSize(14)
+                font.setBold(False)
+                self.groupBoxMsjUsu.setFont(font)
+                self.groupBoxMsjUsu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
+                self.groupBoxMsjUsu.setStyleSheet("QGroupBox {border: 1px solid rgb(148, 148, 148);\n"
+        "border-radius: 5px; \n"
+        "margin-top: 0.5em;}\n"
+        "QGroupBox::title {subcontrol-origin: margin;\n"
+        "subcontrol-position: top left;\n"
+        "padding: 0 3px;}")
+                self.groupBoxMsjUsu.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
+                self.groupBoxMsjUsu.setObjectName("groupBoxMsjUsu")
+                
+                self.labelUsu = QtWidgets.QLabel(self.groupBoxMsjUsu)
+                self.labelUsu.setGeometry(QtCore.QRect(10, 30, 381, 21))
+                font = QtGui.QFont()
+                font.setPointSize(12)
+                font.setItalic(True)
+                self.labelUsu.setFont(font)
+                self.labelUsu.setStyleSheet("border: none")
+                self.labelUsu.setObjectName("labelUsu")
+                self.verticalLayout.addWidget(self.groupBoxMsjUsu)
+                
+                self.groupBoxMsjUsu.setTitle(_translate("MainWindow", "Yo"))
+                self.labelUsu.setText(_translate("MainWindow", mensaje[0]))
+        
