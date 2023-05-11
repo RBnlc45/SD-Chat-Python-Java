@@ -21,7 +21,7 @@ class Conexion():
 
     def setDestinatario(self, destinatario):
         self.destinatario = destinatario
-        self.canalEnviar.queue_declare(queue=destinatario)
+        self.canalEnviar.queue_declare(queue=self.destinatario)
 
     def conectar(self, host):
         self.setHost(host)
@@ -33,7 +33,8 @@ class Conexion():
 
         return True
 
-    def enviarMensaje(self, mensaje):
+    def enviarMensaje(self, mensaje: str):
+        print(self.destinatario)
         self.canalEnviar.basic_publish(exchange='', routing_key=self.destinatario, body=mensaje.encode('utf-8'))
 
     def obtenerUsuarios(self):

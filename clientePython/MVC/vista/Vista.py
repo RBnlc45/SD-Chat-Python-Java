@@ -229,8 +229,6 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
         
-        self.scrollAreaChat.setWidget(self.scrollAreaWidgetContents)
-        
         _translate = QtCore.QCoreApplication.translate
         
         #Tamaño inicial vertical, borde superior e inferior
@@ -340,3 +338,5 @@ class Ui_MainWindow(object):
         else:
             self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 409))
             self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 409))
+
+        self.scrollAreaChat.setWidget(self.scrollAreaWidgetContents)
