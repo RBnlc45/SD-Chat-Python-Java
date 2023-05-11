@@ -234,7 +234,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         
         #Tamaño inicial vertical, borde superior e inferior
-        tam_scroll_area = 8
+        tam_scroll_area = 20
         _max_caracteres = 42
 
         for tupla in mensajes:
@@ -266,6 +266,8 @@ class Ui_MainWindow(object):
             #Verifica el tamaño del mensaje para agregar mas lineas
             tam_group_box = 60 + (21 * cantidad_saltos)
             tam_label = 21 + (21 * cantidad_saltos)
+            
+            tam_scroll_area += tam_group_box + 6
         
             if es_recibido:
                 
@@ -332,5 +334,9 @@ class Ui_MainWindow(object):
         
         #Calcula tamaño y modifica el tamaño del scroll area
         
-        self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 204))
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 204))
+        if tam_scroll_area <= 409:
+            self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, tam_scroll_area))
+            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, tam_scroll_area))
+        else:
+            self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 409))
+            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 409))
