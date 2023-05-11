@@ -32,15 +32,19 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButtonEnviar.clicked.connect(self.enviar)
         
     def enviar(self):
-        chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText(), self.lineEditServer.text())
-        chat.ingresar_mensaje(self.textMensaje.toPlainText(), False)
+        mensaje = self.textMensaje.toPlainText()
+        
+        chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText())
+        chat.ingresar_mensaje(mensaje, False)
         self.textMensaje.clear()
         
         self.actualizar_chat()
+        
+        self.conexion.enviarMensaje(mensaje)
     
     def actualizar_chat(self):
         if self.usuario != None:
-            chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText(), self.lineEditServer.text())
+            chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText())
             self.cargar_mensajes_ui(chat.nombre, chat.mensajes)
             return
         
@@ -48,7 +52,13 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
     
     def dialogo_cargar(self, titulo: str):
         self.dialogo.cargando(titulo)
-        self.dialogo.show()   
+        self.dialogo.show()  
+    
+    def mostrarMensaje(self, mensaje: str):
+        chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText())
+        chat.ingresar_mensaje(mensaje, True)
+        
+        self.actualizar_chat()
     
     def conectar(self):
         
@@ -87,11 +97,19 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         
         self.usuario = Usuario(self.lineEditNombreUsuario.text())
         
-        self.actualizar_usuarios()
-        
         #Coloca el nombre de usuario
         self.conexion.setNombre(self.lineEditNombreUsuario.text())
         
+        #Crea la cola
+        if self.conexion.estaCanalUsado():
+            self.dialogo.aviso("Error", "Conexión exitosa con el servidor")
+            self.dialogo.show()
+            self.conexion = None
+            return
+        
+        #Actualiza los usuarios
+        self.actualizar_usuarios()
+
         #Coloca destinatario por defecto
         if self.comboBoxDestinatario.count() > 0:
             self.comboBoxDestinatario.setCurrentIndex(0)

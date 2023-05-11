@@ -46,22 +46,22 @@ class Conexion():
             if user != self.nombre: users.append(user)
         return users
 
-    def estaCanalUsado(self, nombre):
-        def start_consuming():
+    def estaCanalUsado(self):
+        def start_consuming(controlador):
             def callback(ch, method, properties, body):
-                self.controlador.mostrarMensaje(body.decode('utf-8'))
+                controlador.mostrarMensaje(body.decode('utf-8'))
 
             # Recibir los mensajes colocados en mi queue
-            self.canalRecibir.basic_consume(queue=nombre, on_message_callback=callback, auto_ack=True)
+            self.canalRecibir.basic_consume(queue=self.nombre, on_message_callback=callback, auto_ack=True)
             self.canalRecibir.start_consuming()
 
         try:
             self.canalRecibir = self.conexion.channel()
             self.canalEnviar = self.conexion.channel()
-            colaRecibir=self.canalRecibir.queue_declare(queue=nombre)
+            colaRecibir=self.canalRecibir.queue_declare(queue=self.nombre)
 
             if (colaRecibir.method.consumer_count == 0) :
-                threading.Thread(target=start_consuming, daemon=True).start()
+                threading.Thread(target=start_consuming, daemon=True, args=[self.controlador]).start()
                 return False
             else:
                 return True
