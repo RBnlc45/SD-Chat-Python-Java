@@ -8,18 +8,10 @@ class Conexion():
         self.conexion = None
         self.canalRecibir = None
         self.canalEnviar = None
-        
-        self.usuarios = []
 
         self.host = None #Ip RabbitMQ
         self.nombre = None #Nombre usuario
         self.destinatario = None #Nombre del destinatario
-
-    def listar_usuarios(self):
-        #Escribir código para listar usuarios, agregar usuarios a la lista con su nombre y su ip en tupla (nombre, ip)
-        usuarios = [("Albert", "192.168.0.1"), ("Juan", "172.56.7.2")]
-        
-        return usuarios
 
     def setHost(self, host):
         self.host = host
@@ -81,9 +73,8 @@ class Conexion():
 
 
 class Chat():
-    def __init__(self, nombre: str, ip: str) -> None:
+    def __init__(self, nombre: str) -> None:
         self.nombre = nombre
-        self.ip = ip
         self.mensajes = []
     
     #Destinatario = True si el mensaje llega desde el destinario, = False si sale desde el usuario
@@ -102,20 +93,19 @@ class Chat():
     
 
 class Usuario():
-    def __init__(self, nombre: str, ip: str) -> None:
+    def __init__(self, nombre: str) -> None:
         self.nombre = nombre
-        self.ip = ip
         self.chats = []
     
-    def crear_chat(self, nombre: str, ip: str) -> None:
-        self.chats.append(Chat(nombre, ip))
+    def crear_chat(self, nombre: str) -> None:
+        self.chats.append(Chat(nombre))
     
-    def buscar_chat(self, nombre: str, ip: str) -> Chat:
+    def buscar_chat(self, nombre: str) -> Chat:
         for chat in self.chats:
             if chat.nombre == nombre:
                 return chat
         
-        self.crear_chat(nombre, ip)
+        self.crear_chat(nombre)
         return self.chats[-1]
     
     

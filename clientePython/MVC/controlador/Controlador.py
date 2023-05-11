@@ -85,12 +85,20 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.groupBoxChat.setEnabled(True)
         self.groupBoxMensaje.setEnabled(True)
         
-        self.usuario = Usuario(self.lineEditNombreUsuario.text(), self.lineEditServer.text())
+        self.usuario = Usuario(self.lineEditNombreUsuario.text())
         
         self.actualizar_usuarios()
+        
+        #Coloca el nombre de usuario
+        self.conexion.setNombre(self.lineEditNombreUsuario.text())
+        
+        #Coloca destinatario por defecto
+        if self.comboBoxDestinatario.count() > 0:
+            self.comboBoxDestinatario.setCurrentIndex(0)
+            self.conexion.setDestinatario(self.comboBoxDestinatario.currentText())
     
     def actualizar_usuarios(self):
-        usuarios = [tupla[0] for tupla in self.conexion.listar_usuarios()]
+        usuarios = self.conexion.obtenerUsuarios()
         self.comboBoxDestinatario.addItems(usuarios)
         
     def desconectar(self):   
