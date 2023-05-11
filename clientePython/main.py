@@ -1,6 +1,5 @@
-from MVC.controlador.Controlador import Controlador
+from MVC.controlador.Controlador import abrir
 
 if __name__ == '__main__':
-    controller = Controlador()
-    controller.run()
+    abrir()
 

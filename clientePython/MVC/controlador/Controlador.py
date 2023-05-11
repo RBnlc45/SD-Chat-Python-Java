@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import QtWidgets
-from MVC.vista.Vista import Ui_MainWindow
 
+from MVC.vista.Vista import Ui_MainWindow
 from MVC.modelo.Modelo import Usuario, Conexion
 
 class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):

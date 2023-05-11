@@ -222,7 +222,7 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents.setParent(None)
         
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 204))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 0))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         
         #Layout vertical para el scroll area
@@ -232,13 +232,46 @@ class Ui_MainWindow(object):
         self.scrollAreaChat.setWidget(self.scrollAreaWidgetContents)
         
         _translate = QtCore.QCoreApplication.translate
+        
+        #Tamaño inicial vertical, borde superior e inferior
+        tam_scroll_area = 8
+        _max_caracteres = 42
 
-        for mensaje in mensajes:
-            if mensaje[1]:
+        for tupla in mensajes:
+            
+            mensaje, es_recibido= tupla
+            
+            #Reestructura el mensaje para que se vea bien y calcula lineas extra
+            inicio = 0
+            fin = _max_caracteres
+            
+            nuevo_mensaje = ""
+            
+            while(fin < len(mensaje)):
+                if("\n" in mensaje[inicio:fin]):
+                    fin = mensaje.find("\n", inicio, fin)
+                    nuevo_mensaje += mensaje[inicio:fin+2]
+                    
+                else:
+                    nuevo_mensaje += mensaje[inicio:fin] + "\n"
+                
+                inicio = fin + 2
+                fin = inicio + _max_caracteres
+                
+            if nuevo_mensaje:
+                mensaje = nuevo_mensaje+mensaje[inicio:]
+            
+            cantidad_saltos = mensaje.count('\n')
+        
+            #Verifica el tamaño del mensaje para agregar mas lineas
+            tam_group_box = 60 + (21 * cantidad_saltos)
+            tam_label = 21 + (21 * cantidad_saltos)
+        
+            if es_recibido:
                 
                 self.groupBoxMsjDes = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
-                self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, 60))
-                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(400, 60))
+                self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, tam_group_box))
+                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(400, tam_group_box))
                 font = QtGui.QFont()
                 font.setPointSize(14)
                 font.setBold(False)
@@ -254,7 +287,7 @@ class Ui_MainWindow(object):
                 self.groupBoxMsjDes.setObjectName("groupBoxMsjDes")
                 
                 self.labelDest = QtWidgets.QLabel(self.groupBoxMsjDes)
-                self.labelDest.setGeometry(QtCore.QRect(10, 30, 381, 21))
+                self.labelDest.setGeometry(QtCore.QRect(10, 30, 381, tam_label))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setItalic(True)
@@ -264,12 +297,12 @@ class Ui_MainWindow(object):
                 self.verticalLayout.addWidget(self.groupBoxMsjDes)
                 
                 self.groupBoxMsjDes.setTitle(_translate("MainWindow", nombre_des))
-                self.labelDest.setText(_translate("MainWindow", mensaje[0]))
+                self.labelDest.setText(_translate("MainWindow", mensaje))
                 
             else:
                 self.groupBoxMsjUsu = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
-                self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0, 60))
-                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(400, 60))
+                self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0, tam_group_box))
+                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(400, tam_group_box))
                 font = QtGui.QFont()
                 font.setPointSize(14)
                 font.setBold(False)
@@ -285,7 +318,7 @@ class Ui_MainWindow(object):
                 self.groupBoxMsjUsu.setObjectName("groupBoxMsjUsu")
                 
                 self.labelUsu = QtWidgets.QLabel(self.groupBoxMsjUsu)
-                self.labelUsu.setGeometry(QtCore.QRect(10, 30, 381, 21))
+                self.labelUsu.setGeometry(QtCore.QRect(10, 30, 381, tam_label))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setItalic(True)
@@ -295,5 +328,9 @@ class Ui_MainWindow(object):
                 self.verticalLayout.addWidget(self.groupBoxMsjUsu)
                 
                 self.groupBoxMsjUsu.setTitle(_translate("MainWindow", "Yo"))
-                self.labelUsu.setText(_translate("MainWindow", mensaje[0]))
+                self.labelUsu.setText(_translate("MainWindow", mensaje))
         
+        #Calcula tamaño y modifica el tamaño del scroll area
+        
+        self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 204))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 204))
