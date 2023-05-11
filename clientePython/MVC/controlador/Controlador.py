@@ -17,8 +17,8 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None) -> None:
         super(VentanaChat, self).__init__(parent)
         self.setupUi(self)
-        self.usuario = None
-        self.conexion = None
+        self.usuario: Usuario | None = None
+        self.conexion: Conexion | None = None
         
         #Ventana de dialogo
         self.dialogo = Dialogo()
@@ -39,8 +39,12 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actualizar_chat()
     
     def actualizar_chat(self):
-        chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText(), self.lineEditServer.text())
-        self.cargar_mensajes_ui(chat.nombre, chat.mensajes)
+        if self.usuario != None:
+            chat = self.usuario.buscar_chat(self.comboBoxDestinatario.currentText(), self.lineEditServer.text())
+            self.cargar_mensajes_ui(chat.nombre, chat.mensajes)
+            return
+        
+        self.cargar_mensajes_ui("", [])
     
     def dialogo_cargar(self, titulo: str):
         self.dialogo.cargando(titulo)
@@ -83,14 +87,13 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         
         self.usuario = Usuario(self.lineEditNombreUsuario.text(), self.lineEditServer.text())
         
-        
         self.actualizar_usuarios()
     
     def actualizar_usuarios(self):
         usuarios = [tupla[0] for tupla in self.conexion.listar_usuarios()]
         self.comboBoxDestinatario.addItems(usuarios)
         
-    def desconectar(self):
+    def desconectar(self):   
         self.pushButtonDesconectar.setVisible(False)
         self.pushButtonConectar.setVisible(True)
         
@@ -100,11 +103,18 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.groupBoxDestinatario.setEnabled(False)
         self.groupBoxChat.setEnabled(False)
         self.groupBoxMensaje.setEnabled(False)
-            
+        
+        if self.conexion != None:
+            self.conexion.cerrarConexion()
+            self.dialogo.aviso("Desconetado", "Conexión cerrada")
+            self.dialogo.show()
+        
         self.usuario = None
         self.conexion = None
         
+        self.actualizar_chat()
         self.comboBoxDestinatario.clear()
+        
 
 def abrir():
         app = QtWidgets.QApplication(sys.argv)
