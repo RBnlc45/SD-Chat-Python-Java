@@ -6,10 +6,10 @@ class Controlador:
         self.vista = Vista(self)
         self.modelo = None
 
-        self.estaServerDisponible('localhost')
-        self.estaUsuarioDisponible('chusino')
-        self.usuariosDisponibles('chusino')
-        self.cambiarDestinatario('JoseMaria')
+        #self.estaServerDisponible('localhost')
+        #self.estaUsuarioDisponible('chusino')
+        #self.usuariosDisponibles('chusino')
+        #self.cambiarDestinatario('JoseMaria')
 
 
     def enviarMensaje(self, mensaje):
