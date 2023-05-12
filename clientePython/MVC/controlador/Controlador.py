@@ -161,6 +161,3 @@ def abrir():
         myApp = VentanaChat()
         myApp.show()
         app.exec()
-
-if __name__ == "__main__":
-    abrir()
