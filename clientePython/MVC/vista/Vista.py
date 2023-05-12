@@ -340,3 +340,4 @@ class Ui_MainWindow(object):
             self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 400, 310))
 
         self.scrollAreaChat.setWidget(self.scrollAreaWidgetContents)
+        self.scrollAreaChat.verticalScrollBar().setValue(self.scrollAreaChat.verticalScrollBar().maximum())

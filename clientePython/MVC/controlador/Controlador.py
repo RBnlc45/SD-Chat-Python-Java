@@ -39,6 +39,9 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButtonConectar.clicked.connect(self.conectar)
         self.pushButtonEnviar.clicked.connect(self.enviar)
         
+        #ComboBox
+        self.comboBoxDestinatario.currentIndexChanged.connect(self.cambio_destinatario)
+        
     def enviar(self):
         mensaje = self.textMensaje.toPlainText()
         
@@ -114,8 +117,9 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         
         #Crea la cola
         if self.conexion.estaCanalUsado():
-            self.dialogo.aviso("Error", "Conexión exitosa con el servidor")
+            self.dialogo.aviso("Error", "El canal ya esta en uso")
             self.dialogo.show()
+            self.usuario = None
             self.conexion = None
             return  
         
@@ -126,8 +130,18 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.comboBoxDestinatario.count() > 0:
             self.comboBoxDestinatario.setCurrentIndex(0)
             self.conexion.setDestinatario(self.comboBoxDestinatario.currentText())
+            
+            self.dialogo.aviso("Conectado", "Conectado en chat con " + self.comboBoxDestinatario.currentText())
         
-
+        self.actualizar_chat()
+        
+    
+    def cambio_destinatario(self):
+        if self.conexion != None:
+            self.conexion.setDestinatario(self.comboBoxDestinatario.currentText())
+            self.dialogo.aviso("Conectado", "Conectado en chat con " + self.comboBoxDestinatario.currentText())
+            self.dialogo.show()
+        self.actualizar_chat()
     
     def actualizar_usuarios(self):
         usuarios = self.conexion.obtenerUsuarios()
