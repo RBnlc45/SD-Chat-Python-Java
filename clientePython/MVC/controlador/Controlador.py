@@ -158,6 +158,10 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.groupBoxChat.setEnabled(False)
         self.groupBoxMensaje.setEnabled(False)
         
+        self.conexion = Conexion(self)
+        self.dialogo_cargar("Desconetando...")
+        QtWidgets.QApplication.processEvents()  # Actualiza la interfaz de usuario
+        
         if self.conexion != None:
             self.conexion.cerrarConexion()
             self.dialogo.aviso("Desconetado", "Conexión cerrada")
