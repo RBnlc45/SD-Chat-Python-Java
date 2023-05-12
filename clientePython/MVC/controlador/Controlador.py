@@ -100,16 +100,6 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
             self.dialogo.aviso("Conectado", "Conexión exitosa con el servidor")
             self.dialogo.show()
         
-        self.pushButtonDesconectar.setVisible(True)
-        self.pushButtonConectar.setVisible(False)
-        
-        self.lineEditNombreUsuario.setEnabled(False)
-        self.lineEditServer.setEnabled(False)
-            
-        self.groupBoxDestinatario.setEnabled(True)
-        self.groupBoxChat.setEnabled(True)
-        self.groupBoxMensaje.setEnabled(True)
-        
         self.usuario = Usuario(self.lineEditNombreUsuario.text())
         
         #Coloca el nombre de usuario
@@ -129,11 +119,26 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         #Coloca destinatario por defecto
         if self.comboBoxDestinatario.count() > 0:
             self.comboBoxDestinatario.setCurrentIndex(0)
-            self.conexion.setDestinatario(self.comboBoxDestinatario.currentText())
+            
+            if not self.conexion.setDestinatario(self.comboBoxDestinatario.currentText()):
+                self.dialogo.aviso("Error", "No se pudo conectar al servidor")
+                self.dialogo.show()
+                return
             
             self.dialogo.aviso("Conectado", "Conectado en chat con " + self.comboBoxDestinatario.currentText())
         
         self.actualizar_chat()
+        
+        self.pushButtonDesconectar.setVisible(True)
+        self.pushButtonConectar.setVisible(False)
+        
+        self.lineEditNombreUsuario.setEnabled(False)
+        self.lineEditServer.setEnabled(False)
+            
+        self.groupBoxDestinatario.setEnabled(True)
+        self.groupBoxChat.setEnabled(True)
+        self.groupBoxMensaje.setEnabled(True)
+        
         
     
     def cambio_destinatario(self):
@@ -158,11 +163,10 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
         self.groupBoxChat.setEnabled(False)
         self.groupBoxMensaje.setEnabled(False)
         
-        self.conexion = Conexion(self)
-        self.dialogo_cargar("Desconetando...")
-        QtWidgets.QApplication.processEvents()  # Actualiza la interfaz de usuario
-        
         if self.conexion != None:
+            self.dialogo_cargar("Desconetando...")
+            QtWidgets.QApplication.processEvents()  # Actualiza la interfaz de usuario
+            
             self.conexion.cerrarConexion()
             self.dialogo.aviso("Desconetado", "Conexión cerrada")
             self.dialogo.show()

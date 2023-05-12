@@ -8,6 +8,7 @@ class Conexion():
         self.conexion = None
         self.canalRecibir = None
         self.canalEnviar = None
+        self.hilo = None
 
         self.host = None #Ip RabbitMQ
         self.nombre = None #Nombre usuario
@@ -21,7 +22,11 @@ class Conexion():
 
     def setDestinatario(self, destinatario):
         self.destinatario = destinatario
-        self.canalEnviar.queue_declare(queue=self.destinatario)
+        try:
+            self.canalEnviar.queue_declare(queue=self.destinatario)
+        except pika.exceptions.StreamLostError:
+            return False
+        return True
 
     def conectar(self, host):
         self.setHost(host)
@@ -53,7 +58,10 @@ class Conexion():
 
             # Recibir los mensajes colocados en mi queue
             self.canalRecibir.basic_consume(queue=self.nombre, on_message_callback=callback, auto_ack=True)
-            self.canalRecibir.start_consuming()
+            try:
+                self.canalRecibir.start_consuming()
+            except:
+                self.canalRecibir.stop_consuming()
 
         try:
             self.canalRecibir = self.conexion.channel()
@@ -61,7 +69,8 @@ class Conexion():
             colaRecibir=self.canalRecibir.queue_declare(queue=self.nombre)
 
             if (colaRecibir.method.consumer_count == 0) :
-                threading.Thread(target=start_consuming, daemon=True, args=[self.controlador]).start()
+                self.hilo = threading.Thread(target=start_consuming, daemon=True, args=[self.controlador])
+                self.hilo.start()
                 return False
             else:
                 return True
@@ -69,7 +78,14 @@ class Conexion():
             return True
 
     def cerrarConexion(self):
-        self.conexion.close()
+        try:
+            self.canalRecibir.stop_consuming()
+            self.canalRecibir.close()
+            self.canalEnviar.stop_consuming()
+            self.canalEnviar.close()
+            self.conexion.close()
+        except AttributeError:
+            self.conexion = None
 
 
 class Chat():

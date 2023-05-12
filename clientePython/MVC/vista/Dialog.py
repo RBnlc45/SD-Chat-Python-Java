@@ -20,7 +20,7 @@ class Ui_Dialog(object):
         self.buttonBox.setObjectName("buttonBox")
         
         self.labelTitulo = QtWidgets.QLabel(Dialog)
-        self.labelTitulo.setGeometry(QtCore.QRect(120, 10, 161, 41))
+        self.labelTitulo.setGeometry(QtCore.QRect(100, 10, 181, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.labelTitulo.setFont(font)
