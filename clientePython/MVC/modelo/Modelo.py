@@ -34,7 +34,6 @@ class Conexion():
         return True
 
     def enviarMensaje(self, mensaje: str):
-        print(self.destinatario)
         self.canalEnviar.basic_publish(exchange='', routing_key=self.destinatario, body=mensaje.encode('utf-8'))
 
     def obtenerUsuarios(self):

@@ -233,7 +233,7 @@ class Ui_MainWindow(object):
         
         #Tamaño inicial vertical, borde superior e inferior
         tam_scroll_area = 20
-        _max_caracteres = 42
+        _max_caracteres = 27
 
         for tupla in mensajes:
             
@@ -253,7 +253,7 @@ class Ui_MainWindow(object):
                 else:
                     nuevo_mensaje += mensaje[inicio:fin] + "\n"
                 
-                inicio = fin + 2
+                inicio = fin
                 fin = inicio + _max_caracteres
                 
             if nuevo_mensaje:
@@ -271,7 +271,7 @@ class Ui_MainWindow(object):
                 
                 self.groupBoxMsjDes = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
                 self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, tam_group_box))
-                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(350, tam_group_box))
+                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(270, tam_group_box))
                 font = QtGui.QFont()
                 font.setPointSize(14)
                 font.setBold(False)
@@ -287,7 +287,7 @@ class Ui_MainWindow(object):
                 self.groupBoxMsjDes.setObjectName("groupBoxMsjDes")
                 
                 self.labelDest = QtWidgets.QLabel(self.groupBoxMsjDes)
-                self.labelDest.setGeometry(QtCore.QRect(10, 30, 330, tam_label))
+                self.labelDest.setGeometry(QtCore.QRect(10, 30, 250, tam_label))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setItalic(True)
@@ -302,7 +302,7 @@ class Ui_MainWindow(object):
             else:
                 self.groupBoxMsjUsu = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
                 self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0, tam_group_box))
-                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(350, tam_group_box))
+                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(270, tam_group_box))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setBold(False)
@@ -318,7 +318,7 @@ class Ui_MainWindow(object):
                 self.groupBoxMsjUsu.setObjectName("groupBoxMsjUsu")
                 
                 self.labelUsu = QtWidgets.QLabel(self.groupBoxMsjUsu)
-                self.labelUsu.setGeometry(QtCore.QRect(10, 30, 330, tam_label))
+                self.labelUsu.setGeometry(QtCore.QRect(10, 30, 250, tam_label))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setItalic(True)
