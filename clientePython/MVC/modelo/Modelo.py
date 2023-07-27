@@ -2,9 +2,9 @@ import pika
 import requests
 import threading
 class Conexion():
-    def __init__(self, controlador) -> None:
+    def __init__(self, controlador,cola) -> None:
         self.controlador = controlador
-
+        self.cola=cola
         self.conexion = None
         self.canalRecibir = None
         self.canalEnviar = None
@@ -46,14 +46,17 @@ class Conexion():
             if user != self.nombre: users.append(user)
         return users
 
-    def estaCanalUsado(self):
-        def start_consuming(controlador):
-            def callback(ch, method, properties, body):
-                controlador.mostrarMensaje(body.decode('utf-8'))
+    def callback(self, ch, method, properties, body):
+        self.controlador.mostrarMensaje(body.decode('utf-8'))
 
-            # Recibir los mensajes colocados en mi queue
-            self.canalRecibir.basic_consume(queue=self.nombre, on_message_callback=callback, auto_ack=True)
-            self.canalRecibir.start_consuming()
+    def estaCanalUsado(self):
+        def start_consuming(cola):
+             # Recibir los mensajes colocados en mi queue
+            self.canalRecibir.basic_consume(queue=self.nombre, on_message_callback=self.callback, auto_ack=True)
+            try:
+                self.canalRecibir.start_consuming()
+            except KeyboardInterrupt:
+                self.canalRecibir.stop_consuming()
 
         try:
             self.canalRecibir = self.conexion.channel()
@@ -61,7 +64,7 @@ class Conexion():
             colaRecibir=self.canalRecibir.queue_declare(queue=self.nombre)
 
             if (colaRecibir.method.consumer_count == 0) :
-                threading.Thread(target=start_consuming, daemon=True, args=[self.controlador]).start()
+                threading.Thread(target=start_consuming, daemon=True, args=(self.cola,)).start()
                 return False
             else:
                 return True

@@ -11,10 +11,11 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow: QtWidgets.QMainWindow):
+        self.p=0.8
         
         #Ventana
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(708, 844)
+        MainWindow.resize(round(708*self.p), round(844*self.p))
         MainWindow.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         MainWindow.setStyleSheet("")
         MainWindow.setTabShape(QtWidgets.QTabWidget.TabShape.Rounded)
@@ -24,17 +25,17 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         
         self.groupBoxUsuario = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBoxUsuario.setGeometry(QtCore.QRect(10, 40, 691, 111))
+        self.groupBoxUsuario.setGeometry(QtCore.QRect(round(10*self.p), round(40*self.p), round(691*self.p), round(111*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(True)
         self.groupBoxUsuario.setFont(font)
         self.groupBoxUsuario.setObjectName("groupBoxUsuario")
         
         self.labelNombreUsuario = QtWidgets.QLabel(self.groupBoxUsuario)
-        self.labelNombreUsuario.setGeometry(QtCore.QRect(140, 30, 101, 21))
+        self.labelNombreUsuario.setGeometry(QtCore.QRect(round(140*self.p), round(30*self.p), round(101*self.p), round(21*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
         self.labelNombreUsuario.setFont(font)
@@ -42,9 +43,9 @@ class Ui_MainWindow(object):
         self.labelNombreUsuario.setObjectName("labelNombreUsuario")
         
         self.labelServer = QtWidgets.QLabel(self.groupBoxUsuario)
-        self.labelServer.setGeometry(QtCore.QRect(410, 30, 101, 21))
+        self.labelServer.setGeometry(QtCore.QRect(round(410*self.p), round(30*self.p), round(101*self.p), round(21*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
         self.labelServer.setFont(font)
@@ -52,43 +53,43 @@ class Ui_MainWindow(object):
         self.labelServer.setObjectName("labelServer")
         
         self.lineEditNombreUsuario = QtWidgets.QLineEdit(self.groupBoxUsuario)
-        self.lineEditNombreUsuario.setGeometry(QtCore.QRect(240, 30, 171, 21))
+        self.lineEditNombreUsuario.setGeometry(QtCore.QRect(round(240*self.p), round(30*self.p), round(171*self.p), round(21*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         self.lineEditNombreUsuario.setFont(font)
         self.lineEditNombreUsuario.setObjectName("lineEditNombreUsuario")
         
         self.lineEditServer = QtWidgets.QLineEdit(self.groupBoxUsuario)
-        self.lineEditServer.setGeometry(QtCore.QRect(510, 30, 171, 21))
+        self.lineEditServer.setGeometry(QtCore.QRect(round(510*self.p), round(30*self.p), round(171*self.p), round(21*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         self.lineEditServer.setFont(font)
         self.lineEditServer.setObjectName("lineEditServer")
         
         self.pushButtonConectar = QtWidgets.QPushButton(self.groupBoxUsuario)
-        self.pushButtonConectar.setGeometry(QtCore.QRect(520, 70, 151, 31))
+        self.pushButtonConectar.setGeometry(QtCore.QRect(round(520*self.p), round(70*self.p), round(151*self.p), round(31*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         self.pushButtonConectar.setFont(font)
         self.pushButtonConectar.setObjectName("pushButtonConectar")
         self.pushButtonConectar.setVisible(True)
         
         self.pushButtonDesconectar = QtWidgets.QPushButton(self.groupBoxUsuario)
-        self.pushButtonDesconectar.setGeometry(QtCore.QRect(520, 70, 151, 31))
+        self.pushButtonDesconectar.setGeometry(QtCore.QRect(round(520*self.p), round(70*self.p), round(151*self.p), round(31*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         self.pushButtonDesconectar.setFont(font)
         self.pushButtonDesconectar.setObjectName("pushButtonDesconectar")
         self.pushButtonDesconectar.setVisible(False)
         
         self.groupBoxDestinatario = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBoxDestinatario.setGeometry(QtCore.QRect(10, 150, 691, 71))
+        self.groupBoxDestinatario.setGeometry(QtCore.QRect(round(10*self.p), round(150*self.p), round(691*self.p), round(71*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(True)
         self.groupBoxDestinatario.setFont(font)
         self.groupBoxDestinatario.setStyleSheet("")
@@ -96,9 +97,9 @@ class Ui_MainWindow(object):
         self.groupBoxDestinatario.setObjectName("groupBoxDestinatario")
         
         self.labelNombreDestinatario = QtWidgets.QLabel(self.groupBoxDestinatario)
-        self.labelNombreDestinatario.setGeometry(QtCore.QRect(270, 30, 101, 21))
+        self.labelNombreDestinatario.setGeometry(QtCore.QRect(round(270*self.p), round(30*self.p), round(101*self.p), round(21*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
         self.labelNombreDestinatario.setFont(font)
@@ -106,17 +107,17 @@ class Ui_MainWindow(object):
         self.labelNombreDestinatario.setObjectName("labelNombreDestinatario")
         
         self.comboBoxDestinatario = QtWidgets.QComboBox(self.groupBoxDestinatario)
-        self.comboBoxDestinatario.setGeometry(QtCore.QRect(380, 30, 271, 22))
+        self.comboBoxDestinatario.setGeometry(QtCore.QRect(round(380*self.p), round(30*self.p), round(271*self.p), round(22*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         self.comboBoxDestinatario.setFont(font)
         self.comboBoxDestinatario.setObjectName("comboBoxDestinatario")
         
         self.labelTitulo = QtWidgets.QLabel(self.centralwidget)
-        self.labelTitulo.setGeometry(QtCore.QRect(240, 0, 211, 51))
+        self.labelTitulo.setGeometry(QtCore.QRect(round(240*self.p), round(0*self.p), round(211*self.p), round(51*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(15)
         font.setBold(True)
         font.setItalic(True)
         self.labelTitulo.setFont(font)
@@ -124,9 +125,9 @@ class Ui_MainWindow(object):
         self.labelTitulo.setObjectName("labelTitulo")
         
         self.groupBoxChat = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBoxChat.setGeometry(QtCore.QRect(10, 230, 691, 451))
+        self.groupBoxChat.setGeometry(QtCore.QRect(round(10*self.p), round(230*self.p), round(691*self.p), round(451*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(True)
         self.groupBoxChat.setFont(font)
         self.groupBoxChat.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
@@ -134,9 +135,9 @@ class Ui_MainWindow(object):
         
         #Scroll Area
         self.scrollAreaChat = QtWidgets.QScrollArea(self.groupBoxChat)
-        self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 204))
-        self.scrollAreaChat.setMinimumSize(QtCore.QSize(669, 20))
-        self.scrollAreaChat.setMaximumSize(QtCore.QSize(669, 409))
+        self.scrollAreaChat.setGeometry(QtCore.QRect(round(11*self.p), round(31*self.p), round(669*self.p), round(204*self.p)))
+        self.scrollAreaChat.setMinimumSize(QtCore.QSize(round(669*self.p), round(15*self.p)))
+        self.scrollAreaChat.setMaximumSize(QtCore.QSize(round(669*self.p), round(409*self.p)))
         font = QtGui.QFont()
         font.setPointSize(9)
         font.setBold(False)
@@ -151,7 +152,7 @@ class Ui_MainWindow(object):
         self.scrollAreaChat.setObjectName("scrollAreaChat")
         
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 204))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, round(669*self.p), round(204*self.p)))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         
         #Layout vertical para el scroll area
@@ -162,7 +163,7 @@ class Ui_MainWindow(object):
         
         #Fondo del chat
         self.fondo = QtWidgets.QLabel(self.groupBoxChat)
-        self.fondo.setGeometry(QtCore.QRect(10, 30, 671, 411))
+        self.fondo.setGeometry(QtCore.QRect(round(10*self.p), round(30*self.p), round(671*self.p), round(411*self.p)))
         self.fondo.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(0, 0, 0);")
         self.fondo.setText("")
@@ -172,16 +173,16 @@ class Ui_MainWindow(object):
         self.scrollAreaChat.raise_()
         
         self.groupBoxMensaje = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBoxMensaje.setGeometry(QtCore.QRect(10, 680, 691, 151))
+        self.groupBoxMensaje.setGeometry(QtCore.QRect(round(10*self.p), round(680*self.p), round(691*self.p), round(151*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(True)
         self.groupBoxMensaje.setFont(font)
         self.groupBoxMensaje.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.groupBoxMensaje.setObjectName("groupBoxMensaje")
         
         self.textMensaje = QtWidgets.QTextEdit(self.groupBoxMensaje)
-        self.textMensaje.setGeometry(QtCore.QRect(10, 30, 541, 111))
+        self.textMensaje.setGeometry(QtCore.QRect(round(10*self.p), round(30*self.p), round(541*self.p), round(111*self.p)))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)
@@ -190,9 +191,9 @@ class Ui_MainWindow(object):
         self.textMensaje.setObjectName("textMensaje")
         
         self.pushButtonEnviar = QtWidgets.QPushButton(self.groupBoxMensaje)
-        self.pushButtonEnviar.setGeometry(QtCore.QRect(555, 30, 131, 111))
+        self.pushButtonEnviar.setGeometry(QtCore.QRect(round(555*self.p), round(30*self.p), round(131*self.p), round(111*self.p)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         font.setBold(False)
         self.pushButtonEnviar.setFont(font)
         self.pushButtonEnviar.setObjectName("pushButtonEnviar")
@@ -222,7 +223,7 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents.setParent(None)
         
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 0))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, round(669*self.p), 0))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         
         #Layout vertical para el scroll area
@@ -234,7 +235,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         
         #Tamaño inicial vertical, borde superior e inferior
-        tam_scroll_area = 20
+        tam_scroll_area = 15
         _max_caracteres = 42
 
         for tupla in mensajes:
@@ -272,10 +273,10 @@ class Ui_MainWindow(object):
             if es_recibido:
                 
                 self.groupBoxMsjDes = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
-                self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, tam_group_box))
-                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(400, tam_group_box))
+                self.groupBoxMsjDes.setMinimumSize(QtCore.QSize(0, round(self.p*tam_group_box)))
+                self.groupBoxMsjDes.setMaximumSize(QtCore.QSize(round(400*self.p), round(self.p*tam_group_box)))
                 font = QtGui.QFont()
-                font.setPointSize(14)
+                font.setPointSize(12)
                 font.setBold(False)
                 self.groupBoxMsjDes.setFont(font)
                 self.groupBoxMsjDes.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.DefaultContextMenu)
@@ -289,7 +290,7 @@ class Ui_MainWindow(object):
                 self.groupBoxMsjDes.setObjectName("groupBoxMsjDes")
                 
                 self.labelDest = QtWidgets.QLabel(self.groupBoxMsjDes)
-                self.labelDest.setGeometry(QtCore.QRect(10, 30, 381, tam_label))
+                self.labelDest.setGeometry(QtCore.QRect(round(10*self.p), round(30*self.p), round(381*self.p), round(tam_label*self.p)))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setItalic(True)
@@ -303,10 +304,10 @@ class Ui_MainWindow(object):
                 
             else:
                 self.groupBoxMsjUsu = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
-                self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0, tam_group_box))
-                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(400, tam_group_box))
+                self.groupBoxMsjUsu.setMinimumSize(QtCore.QSize(0*self.p, round(tam_group_box*self.p)))
+                self.groupBoxMsjUsu.setMaximumSize(QtCore.QSize(round(400*self.p), round(tam_group_box*self.p)))
                 font = QtGui.QFont()
-                font.setPointSize(14)
+                font.setPointSize(12)
                 font.setBold(False)
                 self.groupBoxMsjUsu.setFont(font)
                 self.groupBoxMsjUsu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
@@ -320,7 +321,7 @@ class Ui_MainWindow(object):
                 self.groupBoxMsjUsu.setObjectName("groupBoxMsjUsu")
                 
                 self.labelUsu = QtWidgets.QLabel(self.groupBoxMsjUsu)
-                self.labelUsu.setGeometry(QtCore.QRect(10, 30, 381, tam_label))
+                self.labelUsu.setGeometry(QtCore.QRect(round(10*self.p), round(30*self.p), round(381*self.p), round(tam_label*self.p)))
                 font = QtGui.QFont()
                 font.setPointSize(12)
                 font.setItalic(True)
@@ -335,8 +336,8 @@ class Ui_MainWindow(object):
         #Calcula tamaño y modifica el tamaño del scroll area
         
         if tam_scroll_area <= 409:
-            self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, tam_scroll_area))
-            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, tam_scroll_area))
+            self.scrollAreaChat.setGeometry(QtCore.QRect(round(11*self.p), round(31*self.p), round(669*self.p), round(tam_scroll_area*self.p)))
+            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, round(669*self.p), round(tam_scroll_area*self.p)))
         else:
-            self.scrollAreaChat.setGeometry(QtCore.QRect(11, 31, 669, 409))
-            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 669, 409))
+            self.scrollAreaChat.setGeometry(QtCore.QRect(round(11*self.p), round(31*self.p), round(669*self.p), round(409*self.p)))
+            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, round(669*self.p), round(409*self.p)))

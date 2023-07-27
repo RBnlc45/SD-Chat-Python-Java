@@ -2,6 +2,7 @@ import sys
 import typing
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget
+import queue
 
 from MVC.vista.Vista import Ui_MainWindow
 from MVC.vista.Dialog import Ui_Dialog
@@ -17,6 +18,7 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None) -> None:
         super(VentanaChat, self).__init__(parent)
         self.setupUi(self)
+        self.cola=queue.Queue()
         self.usuario: Usuario | None = None
         self.conexion: Conexion | None = None
         
@@ -72,7 +74,7 @@ class VentanaChat(QtWidgets.QMainWindow, Ui_MainWindow):
             self.dialogo.show()
             return
         
-        self.conexion = Conexion(self)
+        self.conexion = Conexion(self,cola=self.cola)
         self.dialogo_cargar("Conetando...")
         QtWidgets.QApplication.processEvents()  # Actualiza la interfaz de usuario
         
