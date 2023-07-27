@@ -64,7 +64,7 @@ public class Vista extends javax.swing.JFrame {
         jPanelDestinatrio.add(jLabel2);      
         cbxDestinatario = new javax.swing.JComboBox<String>();
         cbxDestinatario.addActionListener(e -> {
-        	setColaDestinatario();
+        	setColaDestinatario(true);
         });
         cbxDestinatario.setEditable(false);
         jPanelDestinatrio.add(cbxDestinatario);
@@ -192,7 +192,7 @@ public class Vista extends javax.swing.JFrame {
 						habilitarMensajeria(true);
 						habilitarDesconectar(true);
 						javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
-						setColaDestinatario();
+						setColaDestinatario(false);
 					}
 					else {
 						habilitarMensajeria(false);
@@ -293,7 +293,7 @@ public class Vista extends javax.swing.JFrame {
     }
 	
 	public String getDestinatario() {
-		if(cbxDestinatario.getSelectedItem() == null) return null;
+		if(cbxDestinatario.getSelectedItem() == null) return "Mensaje";
 		else  return cbxDestinatario.getSelectedItem().toString();
 	}
 	
@@ -338,10 +338,10 @@ public class Vista extends javax.swing.JFrame {
 		
 	}
 	// cargar destinatarios en el JComboBox para las colas
-	public void setColaDestinatario() {
+	public void setColaDestinatario(boolean b) {
 		if(controlador.cambiarDestinatario(getDestinatario())) {
 			javax.swing.JOptionPane.showMessageDialog(this, "Usted se conectó con "+ getDestinatario());
-			chatModel.clear();
+			if(b) chatModel.clear();
 		}
 	}
 	
